@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.console.consolePageParticipants">
+   <consolePageParticipant
+      id="net_alchim31_eclipse_console_ansicolor.ConsolePageParticipant"
+      class="net_alchim31_eclipse_console_ansicolor.ConsolePageParticipant">
+   </consolePageParticipant>         
+   </extension>
+
+</plugin>

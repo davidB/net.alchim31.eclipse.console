@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: net.alchim31.eclipse.console.ansicolor.tests
+Bundle-Version: 0.1.0.qualifier
+Fragment-Host: net.alchim31.eclipse.console.ansicolor;bundle-version="0.1.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.junit
