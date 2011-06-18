@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/net.alchim31.eclipse.console.ansicolor_feature_0.1.0.qualifier.jar" id="net.alchim31.eclipse.console.ansicolor_feature" version="0.1.0.qualifier">
+      <category name="console"/>
+   </feature>
+   <category-def name="console" label="Console Extensions"/>
+</site>

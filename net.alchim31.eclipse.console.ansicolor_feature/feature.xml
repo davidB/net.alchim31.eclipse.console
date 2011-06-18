@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net.alchim31.eclipse.console.ansicolor_feature"
+      label="AnsiColor into Console"
+      version="0.1.0.qualifier"
+      provider-name="Alchim31">
+
+   <description url="https://github.com/davidB/net.alchim31.eclipse.console">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="https://github.com/davidB/">
+      Copyright (C) 2011, Alchim31/David Bernard. All rights reserved.
+   </copyright>
+
+   <license url="https://github.com/davidB/net.alchim31.eclipse.console/LICENSE.txt">
+      This program and the accompanying materials are dual-licensed under either the terms of the Eclipse Public License v1.0 as published by the Eclipse Foundation
+
+http://www.eclipse.org/org/documents/epl-v10.php
+
+     or (per the licensee&apos;s choosing)
+
+under the terms of the GNU Lesser General Public License version 2.1 as published by the Free Software Foundation.
+
+http://www.gnu.org/licenses/lgpl.html
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui.console" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.junit"/>
+   </requires>
+
+   <plugin
+         id="net.alchim31.eclipse.console.ansicolor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
