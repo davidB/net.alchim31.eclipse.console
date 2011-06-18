@@ -6,7 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GlyphMetrics;
 import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
 
@@ -58,10 +60,10 @@ class AnsiCodesReader {
       String n = m.group(2);
       int code =  (n.length() == 0) ? 0 : Integer.parseInt(n);
       if (m.group(4) == null) {
-        back.add(new CodeLocation(code, m.start(), m.end()));
+        back.add(new CodeLocation(code, m.start(), m.end()-1));
       } else {
-        back.add(new CodeLocation(code, m.start(), m.end(2)));
-        back.add(new CodeLocation(Integer.parseInt(m.group(4)), m.start(4), m.end()));
+        back.add(new CodeLocation(code, m.start(), m.start(4)-1));
+        back.add(new CodeLocation(Integer.parseInt(m.group(4)), m.start(4), m.end()-1));
       }
       offset = m.end() + 1;
     }
@@ -71,6 +73,8 @@ class AnsiCodesReader {
   //---------------------------------------------------------------------------
   //-- Color tools
   
+  private static final GlyphMetrics hidden = new GlyphMetrics(0, 0, 0);
+
   private static final int foreground0 = 30;
   private static final int background0 = 40;
 
@@ -120,5 +124,40 @@ class AnsiCodesReader {
       currentStyle.underlineColor = tmp;
     }
     return currentStyle;
+  }
+  
+  static List<StyleRange> extractStyleRange(String str, int baseOffset, Display display) throws Exception {
+    ArrayList<StyleRange> styles = new ArrayList<StyleRange>();
+    List<AnsiCodesReader.CodeLocation> codes = AnsiCodesReader.extractCodeLocations(str);
+    if (codes.size() != 0) {
+      StyleRange currentStyle = new StyleRange();
+      currentStyle.start = 0;
+      currentStyle.length = 0;
+      for(int i = 0; i < codes.size(); i++) {
+        AnsiCodesReader.CodeLocation cl = codes.get(i);
+        if ((currentStyle.start + currentStyle.length) != cl.start) {
+          appendStyle(styles, currentStyle, cl.start - 1, baseOffset);      
+          currentStyle.start = cl.start;
+        }
+        AnsiCodesReader.update(currentStyle, cl.code, display);
+        currentStyle.length = (cl.end - currentStyle.start) + 1; 
+      }
+      appendStyle(styles, currentStyle, str.length() - 1, baseOffset);
+    }
+    return styles;
+  }
+
+  private static void appendStyle(List<StyleRange> styles, StyleRange currentStyle, int endInLine, int lineOffset) throws Exception {
+    StyleRange codeStyle = new StyleRange(currentStyle);
+    codeStyle.start = lineOffset + currentStyle.start;
+    codeStyle.length = currentStyle.length;
+    codeStyle.metrics = hidden;
+    styles.add(codeStyle);
+    
+    StyleRange textStyle = new StyleRange(currentStyle);
+    int startInLine = (currentStyle.start + currentStyle.length);
+    textStyle.start = lineOffset + startInLine;
+    textStyle.length = endInLine - startInLine + 1;
+    styles.add(textStyle);
   }
 }
