@@ -35,6 +35,8 @@ public class AnsiCodeReaderTest {
   }
   @Test
   public void extractCodeLocationsOfStringWith2AnsiCodes() throws Exception{
+    assertEquals(3, AnsiCodesReader.extractCodeLocations("\033[0m\033[32m\033[0m\n").size());
+    assertEquals(3, AnsiCodesReader.extractCodeLocations("\033[0;32m\033[0m\n").size());
     assertEquals(3, AnsiCodesReader.extractCodeLocations("\033[0;32m         __                                     __   \033[0m\n").size());
     assertEquals(3, AnsiCodesReader.extractCodeLocations("\033[0;32m/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / / \033[0m\n").size()); 
   }

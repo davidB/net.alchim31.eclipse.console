@@ -65,7 +65,7 @@ class AnsiCodesReader {
         back.add(new CodeLocation(code, m.start(), m.start(4)-1));
         back.add(new CodeLocation(Integer.parseInt(m.group(4)), m.start(4), m.end()-1));
       }
-      offset = m.end() + 1;
+      offset = m.end();
     }
     return back;
   }
